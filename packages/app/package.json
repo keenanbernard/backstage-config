@@ -14,6 +14,8 @@
     "lint": "backstage-cli package lint"
   },
   "dependencies": {
+    "@backstage-community/plugin-graphiql": "^0.9.0",
+    "@backstage-community/plugin-tech-radar": "^1.12.0",
     "@backstage/app-defaults": "^1.7.1",
     "@backstage/catalog-model": "^1.7.5",
     "@backstage/cli": "^0.34.4",
@@ -27,6 +29,7 @@
     "@backstage/plugin-catalog-graph": "^0.5.2",
     "@backstage/plugin-catalog-import": "^0.13.6",
     "@backstage/plugin-catalog-react": "^1.21.2",
+    "@backstage/plugin-home": "^0.8.13",
     "@backstage/plugin-kubernetes": "^0.12.12",
     "@backstage/plugin-notifications": "^0.5.10",
     "@backstage/plugin-org": "^0.6.45",
@@ -41,6 +44,7 @@
     "@backstage/plugin-user-settings": "^0.8.27",
     "@backstage/theme": "^0.7.0",
     "@backstage/ui": "^0.8.0",
+    "@dweber019/backstage-plugin-api-docs-module-wsdl": "^0.1.1",
     "@material-ui/core": "^4.12.2",
     "@material-ui/icons": "^4.9.1",
     "react": "^18.0.2",

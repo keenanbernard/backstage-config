@@ -1,4 +1,4 @@
-import { Navigate, Route } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import { apiDocsPlugin, ApiExplorerPage } from '@backstage/plugin-api-docs';
 import {
   CatalogEntityPage,
@@ -25,6 +25,11 @@ import { entityPage } from './components/catalog/EntityPage';
 import { searchPage } from './components/search/SearchPage';
 import { Root } from './components/Root';
 
+import { themes } from '@backstage/theme';
+import {
+  UnifiedThemeProvider
+} from '@backstage/theme';
+
 import {
   AlertDisplay,
   OAuthRequestDialog,
@@ -37,6 +42,10 @@ import { RequirePermission } from '@backstage/plugin-permission-react';
 import { catalogEntityCreatePermission } from '@backstage/plugin-catalog-common/alpha';
 import { NotificationsPage } from '@backstage/plugin-notifications';
 import { SignalsDisplay } from '@backstage/plugin-signals';
+import { TechRadarPage } from '@backstage-community/plugin-tech-radar';
+import { GraphiQLPage } from '@backstage-community/plugin-graphiql';
+import { HomepageCompositionRoot } from '@backstage/plugin-home';
+import { HomePage } from './components/home/HomePage';
 
 const app = createApp({
   apis,
@@ -60,11 +69,31 @@ const app = createApp({
   components: {
     SignInPage: props => <SignInPage {...props} auto providers={['guest']} />,
   },
+  themes: [
+    // Keeping the original themes is completely optional
+    {
+      id: 'default-dark',
+      title: 'Default Dark',
+      variant: 'dark',
+      Provider: ({ children }) => <UnifiedThemeProvider theme={themes.dark} children={children} />,
+    },
+    {
+      id: 'default-light',
+      title: 'Default Light',
+      variant: 'light',
+      Provider: ({ children }) => <UnifiedThemeProvider theme={themes.light} children={children} />,
+    }
+  ]
 });
 
 const routes = (
   <FlatRoutes>
+{/*
     <Route path="/" element={<Navigate to="catalog" />} />
+*/}
+    <Route path="/" element={<HomepageCompositionRoot />}>
+      <HomePage />
+      </Route>
     <Route path="/catalog" element={<CatalogIndexPage />} />
     <Route
       path="/catalog/:namespace/:kind/:name"
@@ -97,6 +126,8 @@ const routes = (
     <Route path="/settings" element={<UserSettingsPage />} />
     <Route path="/catalog-graph" element={<CatalogGraphPage />} />
     <Route path="/notifications" element={<NotificationsPage />} />
+    <Route path="/tech-radar" element={<TechRadarPage width={1500} height={800} />} />
+    <Route path="/graphiql" element={<GraphiQLPage />} />
   </FlatRoutes>
 );
 
